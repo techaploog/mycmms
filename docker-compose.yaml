@@ -1,11 +1,55 @@
 services:
-  frontend:
-    build: 
-      context: ./frontend
-      dockerfile: ./Dockerfile
+  nginx:
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - frontend-net
+      - backend-net
+
+  web:
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
       target: development
     command: pnpm run dev
-    ports:
-      - "3000:3000"
+    networks:
+      - frontend-net
     volumes:
       - ./frontend:/usr/src/app
+
+  gateway:
+    build:
+      context: .
+      dockerfile: ./backend/apps/gateway/Dockerfile
+      target: development
+    command: pnpm run start:dev gateway
+    env_file:
+      - ./backend/apps/gateway/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - backend-net
+  
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    networks:
+      - backend-net
+  
+  rabbitmq:
+    image: rabbitmq
+    ports:
+      - "5672:5672"
+    networks:
+      - backend-net
+
+
+networks:
+  frontend-net:
+  backend-net:

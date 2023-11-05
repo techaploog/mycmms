@@ -2,19 +2,17 @@ FROM node:alpine as development
 
 WORKDIR /usr/src/app
 
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
-COPY ./tsconfig.json ./tsconfig.json
+COPY ./frontend/package.json ./
+COPY ./frontend/pnpm-lock.yaml ./
+COPY ./frontend/tsconfig.json ./tsconfig.json
 
 RUN npm install -g pnpm
 
 RUN pnpm install
 
-COPY . .
+COPY ./frontend .
 
 RUN pnpm run build
-
-EXPOSE 3000
 
 FROM node:alpine as production
 
@@ -23,13 +21,11 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY ./package.json ./
-COPY ./pnpm-lock.yaml ./
+COPY ./frontend/package.json ./
+COPY ./frontend/pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 
 RUN pnpm install --prod
-
-EXPOSE 3000
 
 CMD ["pnpm","start"]
