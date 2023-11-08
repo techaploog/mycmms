@@ -37,13 +37,13 @@
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
-    "gateway": {
+    "users": {
       "type": "application",
-      "root": "apps/gateway",
+      "root": "apps/users",
       "entryFile": "main",
-      "sourceRoot": "apps/gateway/src",
+      "sourceRoot": "apps/users/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/gateway/tsconfig.app.json"
+        "tsConfigPath": "apps/users/tsconfig.app.json"
       }
     }
   }

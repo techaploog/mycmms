@@ -1,5 +1,5 @@
 {
-  "name": "@mycmms/gateway",
+  "name": "@mycmms/users",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,6 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "helmet": "^7.0.0"
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6"
   }
 }

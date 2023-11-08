@@ -2,16 +2,16 @@ FROM node:alpine as development
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
-COPY tsconfig.json tsconfig.json
+COPY ./backend/package.json ./
+COPY ./backend/pnpm-lock.yaml ./
+COPY ./backend/tsconfig.json ./tsconfig.json
 
 RUN npm install -g pnpm
 
 RUN pnpm install
 
-COPY apps/auth apps/auth
-COPY libs libs
+COPY ./backend/apps/auth ./apps/auth
+COPY ./backend/libs ./libs
 
 RUN cd apps/auth && pnpm install
 
@@ -24,8 +24,8 @@ ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
-COPY package.json ./
-COPY pnpm-lock.yaml ./
+COPY ./backend/package.json ./
+COPY ./backend/pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 

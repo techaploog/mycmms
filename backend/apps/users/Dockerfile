@@ -10,10 +10,10 @@ RUN npm install -g pnpm
 
 RUN pnpm install
 
-COPY ./backend/apps/gateway ./apps/gateway
+COPY ./backend/apps/users ./apps/users
 COPY ./backend/libs ./libs
 
-RUN cd apps/gateway && pnpm install
+RUN cd apps/users && pnpm install
 
 RUN pnpm run build
 
@@ -33,4 +33,4 @@ RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
-CMD ["node","dist/apps/gateway/main"]
+CMD ["node","dist/apps/users/main"]

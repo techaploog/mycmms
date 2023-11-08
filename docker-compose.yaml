@@ -5,6 +5,8 @@ services:
       dockerfile: ./nginx/Dockerfile
     ports:
       - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
     networks:
       - frontend-net
       - backend-net
@@ -20,16 +22,27 @@ services:
     volumes:
       - ./frontend:/usr/src/app
 
-  gateway:
+  auth:
     build:
       context: .
-      dockerfile: ./backend/apps/gateway/Dockerfile
+      dockerfile: ./backend/apps/auth/Dockerfile
       target: development
-    command: pnpm run start:dev gateway
+    command: pnpm run start:dev auth
     env_file:
-      - ./backend/apps/gateway/.env
-    ports:
-      - '3001:3001'
+      - ./backend/apps/auth/.env
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - backend-net
+    
+  users:
+    build:
+      context: .
+      dockerfile: ./backend/apps/users/Dockerfile
+      target: development
+    command: pnpm run start:dev users
+    env_file:
+      - ./backend/apps/users/.env
     volumes:
       - ./backend:/usr/src/app
     networks:
