@@ -19,7 +19,12 @@ async function bootstrap() {
     }
   })
 
+  console.log(configService.get('ALLOW_ORIGIN'))
+
   app.use(helmet());
+  app.enableCors({
+    origin:configService.get('ALLOW_ORIGIN').split(',')
+  })
   app.use(cookieParser());
   app.useLogger(app.get(Logger));
 
