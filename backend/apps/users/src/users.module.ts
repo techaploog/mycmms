@@ -19,6 +19,7 @@ import * as Joi from 'joi';
         MONGODB_URI: Joi.string().required(),
         RABBITMQ_URI: Joi.string().required(),
         HTTP_PORT:Joi.number().required(),
+        ALLOW_ORIGIN:Joi.string().required(),
       }),
     })
   ],

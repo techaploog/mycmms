@@ -21,6 +21,9 @@ async function bootstrap() {
   })
 
   app.use(helmet());
+  app.enableCors({
+    origin:configService.get('ALLOW_ORIGIN').split(',')
+  })
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe())
   app.useLogger(app.get(Logger));
