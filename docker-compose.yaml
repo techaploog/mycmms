@@ -51,6 +51,19 @@ services:
       - ./backend:/usr/src/app
     networks:
       - backend-net
+
+  teams:
+    build:
+      context: .
+      dockerfile: ./backend/apps/teams/Dockerfile
+      target: development
+    command: pnpm run start:dev teams
+    env_file:
+      - ./backend/apps/teams/.env
+    volumes:
+      - ./backend:/usr/src/app
+    networks:
+      - backend-net
   
   mongo:
     image: mongo

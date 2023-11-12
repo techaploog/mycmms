@@ -3,16 +3,22 @@ import { IsArray, IsEmail, IsNotEmpty, IsOptional, IsString, IsStrongPassword } 
 import { ApiProperty,OmitType } from "@nestjs/swagger";
 
 export class CreateUserDto {
-  @ApiProperty({
-    required:true,
-    type:'string',
-  })
+  @IsNotEmpty()
   @IsEmail()
   email:string;
 
   @IsStrongPassword()
   @IsNotEmpty()
   password:string;
+
+  @IsString()
+  @IsNotEmpty()
+  name:string;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({each:true})
+  teams?:string[]
 
   @IsOptional()
   @IsArray()

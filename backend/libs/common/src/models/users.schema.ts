@@ -10,6 +10,9 @@ export class UsersDocument extends AbstractDocument{
   password:string;
 
   @Prop()
+  teams?:string[];
+
+  @Prop()
   roles?:string[];
 }
 
